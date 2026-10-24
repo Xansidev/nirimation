@@ -55,3 +55,22 @@ Enjoy them!
 # Current Issues;
 Unravel seems to have a error or non alignment where it does not draw the line based on how long the window is infact it just draws it to the screen width.
 Here are the some videos for reference.
+
+# Nix / Home Manager
+Add the flake to your inputs and enable the module:
+```nix
+# flake.nix
+inputs.nirimation.url = "github:XansiVA/nirimation";
+
+# home.nix
+imports = [ inputs.nirimation.homeManagerModules.default ];
+
+programs.nirimation = {
+  enable = true;
+  animation = "glitch-cyberpunk";                    # optional
+  settings.glitch-cyberpunk.open_duration_ms = 500;  # optional, keys from animations/config.toml
+};
+```
+Then add `include "nirimation.kdl"` to your niri `config.kdl`.
+
+Leave out `animation` and `settings` if you'd rather switch animations with `nirimation apply <name>`. Home Manager makes the files it manages read-only, so `nirimation apply` can't change them.
